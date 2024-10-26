@@ -168,7 +168,7 @@ Evaluasi model dilakukan menggunakan beberapa metrik untuk mengukur kinerja dala
    Accuracy mengukur persentase prediksi yang benar dari keseluruhan prediksi. Rumusnya adalah jumlah True Positives ditambah True Negatives dibagi dengan total jumlah sampel. Accuracy memberi gambaran umum performa model dalam keseluruhan data, namun tidak selalu cocok bila terdapat ketidakseimbangan antar kelas.
 
 Berikut rumus matematika dari masing-masing metrik evaluasi :
-![rumus matrik](https://www.researchgate.net/publication/367393140/figure/fig4/AS:11431281114710300@1674648981676/Confusion-matrix-Precision-Recall-Accuracy-and-F1-score.jpg) 
+![rumus matrik](https://raw.githubusercontent.com/asfararikza/Sistem-Prediksi-Kelulusan-Siswa/refs/heads/main/images/Confusion-matrix-Precision-Recall-Accuracy-and-F1-score.png) 
 
 ---
 
