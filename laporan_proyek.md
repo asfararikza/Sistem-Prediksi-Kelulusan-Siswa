@@ -83,13 +83,15 @@ Berdasarkan matriks korelasi, terlihat bahwa fitur yang paling berpengaruh dalam
 
 Pada tahap **Data Preparation**, data dipersiapkan sebelum digunakan untuk pelatihan model. Beberapa langkah yang dilakukan dalam tahap ini meliputi:
 
-1. **Penghapusan Fitur yang Tidak Diperlukan**: 
+1. **Penghapusan Fitur yang Tidak Diperlukan**:  
    Kolom yang tidak relevan, yaitu `Unnamed: 9`, dihapus dari DataFrame untuk memastikan hanya fitur yang diperlukan yang digunakan dalam analisis.
 
-2. **Penyesuaian Tipe Data**: 
-   Tipe data untuk setiap fitur diperiksa dan disesuaikan jika diperlukan agar sesuai dengan format yang tepat untuk analisis lebih lanjut.
+2. **Penyesuaian Tipe Data**:  
+   Tipe data untuk setiap fitur diperiksa dan disesuaikan jika diperlukan agar sesuai dengan format yang tepat untuk analisis lebih lanjut. Salah satu langkah penting dalam penyesuaian tipe data adalah mengubah fitur kategorikal `Gender` menjadi format numerik. Dalam hal ini, digunakan One Hot Encoder untuk mengonversi fitur tersebut. Hasilnya adalah:
+   - Perempuan diwakili oleh angka **1**.
+   - Pria diwakili oleh angka **0**.
 
-3. **Pembagian Data Uji dan Data Latih**: 
+3. **Pembagian Data Uji dan Data Latih**:  
    Dataset dibagi menjadi fitur (X) dan target (y) di mana `X` berisi semua kolom kecuali kolom `Success`, dan `y` hanya berisi kolom `Success`. Data kemudian dibagi menjadi data latih dan data uji dengan proporsi 85% untuk data latih dan 15% untuk data uji. Hasil pembagian menunjukkan bahwa data latih terdiri dari sejumlah entri, sementara data uji berisi sisa entri.
 
 ## Modeling
