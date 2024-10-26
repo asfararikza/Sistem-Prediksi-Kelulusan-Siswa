@@ -1,9 +1,9 @@
 # Sistem Prediksi Kelulusan Siswa - Asfara Rikza
 
 ## Domain Proyek
-Pendidikan memiliki peran krusial dalam meningkatkan kualitas sumber daya manusia dan memajukan suatu bangsa. Namun, tantangan besar yang dihadapi adalah tingginya angka siswa yang tidak lulus, yang mengancam pencapaian tujuan pendidikan nasional. Dalam konteks ini, kebutuhan akan informasi yang akurat untuk memahami faktor-faktor yang mempengaruhi kelulusan siswa sangat penting. Data statistik dari Kementerian Pendidikan dan Kebudayaan menunjukkan bahwa jumlah siswa putus sekolah di tingkat SMA/SMK semakin meningkat setiap tahunnya. Misalnya, di Jawa Barat, jumlah siswa putus sekolah pada tahun 2016/2017 mencapai 21.578 orang, dan meningkat menjadi 22.270 orang pada tahun 2017/2018.
+Pendidikan memiliki peran krusial dalam meningkatkan kualitas sumber daya manusia dan memajukan suatu bangsa. Namun, tantangan besar yang dihadapi adalah tingginya angka siswa yang tidak lulus, yang mengancam pencapaian tujuan pendidikan nasional (Amalia, 2020). Dalam konteks ini, kebutuhan akan informasi yang akurat untuk memahami faktor-faktor yang mempengaruhi kelulusan siswa sangat penting. Data statistik dari Kementerian Pendidikan dan Kebudayaan menunjukkan bahwa jumlah siswa putus sekolah di tingkat SMA/SMK semakin meningkat setiap tahunnya. Misalnya, di Jawa Barat, jumlah siswa putus sekolah pada tahun 2016/2017 mencapai 21.578 orang, dan meningkat menjadi 22.270 orang pada tahun 2017/2018 (Sumpena and Kurnia, 2019).
 
-Untuk mengatasi masalah ini, penggunaan teknik data mining menjadi relevan, karena dapat membantu mengidentifikasi pola dan faktor yang berkontribusi terhadap kelulusan siswa. Dengan memahami data dan informasi yang terkandung di dalamnya, institusi pendidikan dapat merumuskan strategi yang lebih efektif untuk meningkatkan tingkat kelulusan, yang pada akhirnya berkontribusi pada pembangunan masyarakat yang lebih baik
+Untuk mengatasi masalah ini, penggunaan teknik data mining menjadi relevan, karena dapat membantu mengidentifikasi pola dan faktor yang berkontribusi terhadap kelulusan siswa (Meilani and Susanti, 2015). Dengan memahami data dan informasi yang terkandung di dalamnya, institusi pendidikan dapat merumuskan strategi yang lebih efektif untuk meningkatkan tingkat kelulusan, yang pada akhirnya berkontribusi pada pembangunan masyarakat yang lebih baik.
 
 Referensi:
 - [Penerapan Data Mining untuk Memprediksi Hasil Kelulusan Siswa Menggunakan Metode Naïve Bayes](https://journal.uc.ac.id/index.php/JUISI/article/view/1685)
@@ -19,7 +19,6 @@ Berdasarkan data yang ada, banyak siswa yang tidak mencapai kelulusan pada tingk
 ### Goals
 1. Membangun sistem prediksi kelulusan siswa berdasarkan nilai ujian dan data terkait lainnya.
 2. Mengidentifikasi siswa yang diprediksi tidak lulus, sehingga pihak sekolah dapat memberikan perhatian dan dukungan yang diperlukan untuk meningkatkan peluang kelulusan mereka.
-3. Meningkatkan kualitas pendidikan di sekolah dengan memanfaatkan data dan analisis untuk mengambil keputusan yang lebih baik.
 
 ### Solution Statement
 Untuk mencapai tujuan peningkatan kelulusan siswa, dua solusi berikut diusulkan:
@@ -84,7 +83,7 @@ Berdasarkan matriks korelasi, terlihat bahwa fitur yang paling berpengaruh dalam
 Pada tahap **Data Preparation**, data dipersiapkan sebelum digunakan untuk pelatihan model. Beberapa langkah yang dilakukan dalam tahap ini meliputi:
 
 1. **Penghapusan Fitur yang Tidak Diperlukan**:  
-   Kolom yang tidak relevan, yaitu `Unnamed: 9`, dihapus dari DataFrame untuk memastikan hanya fitur yang diperlukan yang digunakan dalam analisis.
+   Kolom yang tidak relevan, yaitu `Unnamed: 9`, dihapus dari DataFrame bertujuan untuk memastikan hanya fitur yang diperlukan yang digunakan dalam analisis.
 
 2. **Penyesuaian Tipe Data**:  
    Tipe data untuk setiap fitur diperiksa dan disesuaikan jika diperlukan agar sesuai dengan format yang tepat untuk analisis lebih lanjut. Salah satu langkah penting dalam penyesuaian tipe data adalah mengubah fitur kategorikal `Gender` menjadi format numerik. Dalam hal ini, digunakan One Hot Encoder untuk mengonversi fitur tersebut. Hasilnya adalah:
@@ -101,6 +100,10 @@ Pada tahap **Modeling**, dua algoritma digunakan untuk memprediksi kelulusan sis
 ### Algoritma yang Digunakan
 
 1. **Support Vector Machine (SVM)**
+
+   **Cara Kerja SVM**:
+   SVM bekerja dengan mencari hyperplane terbaik yang dapat memisahkan kelas-kelas dalam ruang fitur. Hyperplane ini adalah garis (atau lebih umum, bidang) yang memaksimalkan margin antara kelas-kelas yang berbeda. SVM mencoba untuk menemukan titik-titik support (titik-titik terdekat dari hyperplane) yang membantu dalam menentukan lokasi hyperplane. Jika data tidak dapat dipisahkan secara linear, SVM menggunakan fungsi kernel untuk memetakan data ke dalam dimensi yang lebih tinggi, di mana pemisahan kelas dapat dilakukan dengan lebih efektif.
+
    - **Kelebihan**:
      - SVM efektif pada data dengan dimensi yang tinggi dan performanya tetap baik walaupun jumlah fitur lebih banyak dari jumlah sampel.
      - SVM bekerja baik dengan margin yang jelas antara kelas-kelas dan dapat menghasilkan keputusan yang optimal karena mencari garis pemisah terbaik (hyperplane) untuk memaksimalkan margin.
@@ -120,6 +123,10 @@ Pada tahap **Modeling**, dua algoritma digunakan untuk memprediksi kelulusan sis
      ```
 
 2. **XGBoost**
+
+   **Cara Kerja XGBoost**:
+   XGBoost adalah algoritma boosting yang membangun model dengan menggabungkan beberapa pohon keputusan (decision trees). Setiap pohon keputusan dibangun secara bertahap, dengan setiap pohon berusaha memperbaiki kesalahan prediksi dari pohon sebelumnya. Dengan cara ini, model belajar dari kesalahan yang dibuat dan menghasilkan prediksi yang lebih akurat. XGBoost menggunakan teknik regulasi dan optimasi untuk meningkatkan kinerja dan mencegah overfitting.
+
    - **Kelebihan**:
      - XGBoost adalah algoritma yang sangat cepat dan efisien, yang secara khusus dioptimalkan untuk performa komputasi dan pemrosesan data dalam jumlah besar.
      - Memiliki kemampuan untuk mengatasi overfitting dan memberikan hasil yang akurat pada data yang kompleks karena menggunakan teknik boosting, yaitu memperbaiki kesalahan prediksi dari model sebelumnya.
@@ -127,7 +134,7 @@ Pada tahap **Modeling**, dua algoritma digunakan untuk memprediksi kelulusan sis
      - Memiliki kompleksitas yang lebih tinggi, yang dapat menyebabkan waktu pemrosesan lebih lama jika model tidak diatur dengan baik.
      - XGBoost membutuhkan parameter yang cukup banyak untuk disesuaikan agar mencapai hasil optimal.
 
-- **Parameter Model**:
+   - **Parameter Model**:
      - `n_estimators`: Jumlah pohon keputusan yang akan dibangun. Semakin banyak pohon, semakin kompleks model, tetapi juga dapat meningkatkan risiko overfitting.
      - `learning_rate`: Mengontrol seberapa besar langkah yang diambil dalam setiap iterasi. Nilai yang lebih rendah dapat meningkatkan akurasi tetapi memerlukan lebih banyak estimasi.
      - `max_depth`: Kedalaman maksimum dari pohon keputusan. Mengontrol kompleksitas model dan dapat membantu mencegah overfitting.
@@ -139,7 +146,7 @@ Pada tahap **Modeling**, dua algoritma digunakan untuk memprediksi kelulusan sis
      xgb_clf = XGBClassifier(n_estimators=100, learning_rate=0.1, max_depth=3)
      xgb_clf.fit(X_train, y_train)
      y_pred_xgb = xgb_clf.predict(X_test)
-     ```
+     ``` 
 
 Kedua model ini akan dievaluasi berdasarkan metrik kinerja untuk menentukan model terbaik dalam memprediksi kelulusan siswa.
 
@@ -151,14 +158,17 @@ Evaluasi model dilakukan menggunakan beberapa metrik untuk mengukur kinerja dala
 1. **Precision**  
    Precision mengukur akurasi prediksi positif model. Precision dihitung dengan rumus: jumlah True Positives dibagi dengan jumlah True Positives ditambah False Positives. Precision yang tinggi menunjukkan sedikit kesalahan pada prediksi positif dan penting dalam kasus di mana kesalahan pada prediksi positif dapat merugikan.
 
-2. **Recall**  
+3. **Recall**  
    Recall menunjukkan seberapa baik model dalam menemukan semua contoh positif dalam data. Recall dihitung dengan rumus: jumlah True Positives dibagi dengan jumlah True Positives ditambah False Negatives. Nilai recall yang tinggi penting ketika tujuan utama adalah meminimalkan jumlah kasus positif yang tidak terdeteksi.
 
-3. **F1-Score**  
+4. **F1-Score**  
    F1-Score adalah rata-rata harmonis dari precision dan recall. Rumusnya adalah 2 dikalikan dengan hasil perkalian antara precision dan recall, lalu dibagi dengan hasil penjumlahan antara precision dan recall. F1-Score berguna saat terdapat ketidakseimbangan data antara kelas positif dan negatif.
 
-4. **Accuracy**  
+5. **Accuracy**  
    Accuracy mengukur persentase prediksi yang benar dari keseluruhan prediksi. Rumusnya adalah jumlah True Positives ditambah True Negatives dibagi dengan total jumlah sampel. Accuracy memberi gambaran umum performa model dalam keseluruhan data, namun tidak selalu cocok bila terdapat ketidakseimbangan antar kelas.
+
+Berikut rumus matematika dari masing-masing metrik evaluasi :
+![rumus matrik](https://www.researchgate.net/publication/367393140/figure/fig4/AS:11431281114710300@1674648981676/Confusion-matrix-Precision-Recall-Accuracy-and-F1-score.jpg)
 
 ---
 
@@ -186,6 +196,20 @@ Model yang dikembangkan mencapai akurasi yang tinggi, yang menunjukkan bahwa tuj
 
 ### Evaluasi Solution Statement
 Penggunaan dua algoritma untuk perbandingan dan identifikasi faktor yang mempengaruhi kelulusan siswa memberikan wawasan yang berharga. Dengan memilih model terbaik, XGBoost, dapat membantu guru dalam mengidentifikasi siswa yang berisiko lebih awal, sehingga dapat memberikan dukungan yang diperlukan untuk meningkatkan peluang kelulusan.
+
+## Kesimpulan
+
+Berdasarkan hasil evaluasi model prediksi kelulusan siswa yang dilakukan dengan menggunakan algoritma Support Vector Machine (SVM) dan XGBoost, beberapa kesimpulan dapat ditarik:
+
+1. **Kinerja Model**:
+   - **Support Vector Machine (SVM)** menunjukkan akurasi sebesar **X%**, dengan nilai presisi dan recall yang cukup baik. Model ini efektif dalam menangani data dengan dimensi tinggi, namun menunjukkan beberapa keterbatasan pada dataset yang lebih besar dan memiliki noise.
+   - **XGBoost** mencapai akurasi tertinggi sebesar **Y%**, serta menghasilkan nilai presisi dan recall yang lebih baik dibandingkan SVM. Keunggulan XGBoost dalam mengatasi overfitting dan kemampuannya untuk memperbaiki kesalahan dari model sebelumnya menjadikannya pilihan yang lebih baik dalam konteks ini.
+
+2. **Pemilihan Model**: 
+   - Berdasarkan hasil evaluasi, **XGBoost** dipilih sebagai model terbaik karena memiliki akurasi tertinggi dan performa yang lebih stabil. Hal ini menunjukkan bahwa model ini lebih mampu menangani kompleksitas dan variasi dalam data dibandingkan SVM.
+
+3. **Faktor yang Mempengaruhi Hasil**:
+   - Dari analisis korelasi, fitur-fitur seperti nilai ujian dan skor tahunan terbukti sangat berpengaruh dalam menentukan status kelulusan siswa. Ini menunjukkan bahwa peningkatan nilai pada ujian dapat berkontribusi signifikan terhadap keberhasilan akademis.
 
 
 
