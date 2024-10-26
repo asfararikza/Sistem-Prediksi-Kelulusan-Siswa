@@ -40,23 +40,40 @@ Sumber dataset: [Students Annual Score in History Geography subject](https://www
 
 Dataset ini memiliki kolom-kolom sebagai berikut:
 
-| Kolom          | Tipe Data |
-|----------------|-----------|
-| Gender         | object    |
-| Test_01         | float64   |
-| Exam_01        | float64   |
-| Test_02         | float64   |
-| Exam_02        | float64   |
-| Test_03       | float64   |
-| Exam_03        | float64   |
-| Annual_Score   | float64   |
-| Success        | int64     |
+| Kolom          | Jumlah Non-Null | Tipe Data |
+|----------------|------------------|-----------|
+| Gender         | 634 non-null     | object    |
+| Test_01        | 634 non-null     | float64   |
+| Exam_01        | 634 non-null     | float64   |
+| Test_02        | 634 non-null     | float64   |
+| Exam_02        | 634 non-null     | float64   |
+| Test_03        | 634 non-null     | float64   |
+| Exam_03        | 634 non-null     | float64   |
+| Annual_Score   | 634 non-null     | float64   |
+| Success        | 634 non-null     | int64     |
 
- Tipe data:
-- **Gender**: Variabel kategorikal yang menunjukkan jenis kelamin siswa.
-- **Nilai Ujian dan Tes**: Variabel kontinu yang mewakili nilai dari berbagai tes dan ujian.
-- **Skor Tahunan**: Variabel kontinu yang mewakili kinerja keseluruhan siswa selama tahun ajaran.
-- **Success**: Indikator biner (0 atau 1) yang menunjukkan apakah seorang siswa berhasil lulus atau tidak.
+Pada dataset ini terdapat 634 baris data dengan sembilan fitur. Berikut penjelasan masing-masing fitur:
+- Gender: Jenis kelamin siswa (F = perempuan, M = laki-laki).
+- Test_01, Test_02, Test_03: Nilai tes harian siswa.
+- Exam_01, Exam_02, Exam_03: Nilai ujian tengah semester dan akhir siswa.
+- Annual_Score: Nilai akhir siswa berdasarkan semua tes dan ujian.
+- Success: Status kelulusan siswa (1 = lulus, 0 = tidak lulus), yang menjadi target prediksi model.
+
+
+**Pemeriksaan Data Kosong (Null Values)**: 
+   Data kosong diperiksa untuk memastikan tidak ada nilai yang hilang dalam dataset. Hasil pemeriksaan menunjukkan bahwa tidak ada data yang kosong pada setiap kolom, yaitu:
+   - Gender: 0
+   - Test_01: 0
+   - Exam_01: 0
+   - Test_02: 0
+   - Exam_02: 0
+   - Test_03: 0
+   - Exam_03: 0
+   - Annual_Score: 0
+   - Success: 0
+
+**Pemeriksaan Data Duplikat**: 
+   Data duplikat diperiksa untuk menghindari pengaruh negatif terhadap model. Hasil pemeriksaan menunjukkan bahwa jumlah data duplikat adalah 0, yang berarti tidak ada entri yang sama dalam dataset.
 
 ### Analisis Faktor Pengaruh Kelulusan Siswa
 ![Matriks Korelasi](https://raw.githubusercontent.com/asfararikza/Sistem-Prediksi-Kelulusan-Siswa/refs/heads/main/images/correlation%20matrix.png)  
@@ -69,25 +86,10 @@ Pada tahap **Data Preparation**, data dipersiapkan sebelum digunakan untuk pelat
 1. **Penghapusan Fitur yang Tidak Diperlukan**: 
    Kolom yang tidak relevan, yaitu `Unnamed: 9`, dihapus dari DataFrame untuk memastikan hanya fitur yang diperlukan yang digunakan dalam analisis.
 
-2. **Pemeriksaan Data Kosong (Null Values)**: 
-   Data kosong diperiksa untuk memastikan tidak ada nilai yang hilang dalam dataset. Hasil pemeriksaan menunjukkan bahwa tidak ada data yang kosong pada setiap kolom, yaitu:
-   - Gender: 0
-   - Test_01: 0
-   - Exam_01: 0
-   - Test_02: 0
-   - Exam_02: 0
-   - Test_03: 0
-   - Exam_03: 0
-   - Annual_Score: 0
-   - Success: 0
-
-3. **Pemeriksaan Data Duplikat**: 
-   Data duplikat diperiksa untuk menghindari pengaruh negatif terhadap model. Hasil pemeriksaan menunjukkan bahwa jumlah data duplikat adalah 0, yang berarti tidak ada entri yang sama dalam dataset.
-
-4. **Penyesuaian Tipe Data**: 
+2. **Penyesuaian Tipe Data**: 
    Tipe data untuk setiap fitur diperiksa dan disesuaikan jika diperlukan agar sesuai dengan format yang tepat untuk analisis lebih lanjut.
 
-5. **Pembagian Data Uji dan Data Latih**: 
+3. **Pembagian Data Uji dan Data Latih**: 
    Dataset dibagi menjadi fitur (X) dan target (y) di mana `X` berisi semua kolom kecuali kolom `Success`, dan `y` hanya berisi kolom `Success`. Data kemudian dibagi menjadi data latih dan data uji dengan proporsi 85% untuk data latih dan 15% untuk data uji. Hasil pembagian menunjukkan bahwa data latih terdiri dari sejumlah entri, sementara data uji berisi sisa entri.
 
 ## Modeling
@@ -103,7 +105,16 @@ Pada tahap **Modeling**, dua algoritma digunakan untuk memprediksi kelulusan sis
    - **Kekurangan**:
      - SVM cenderung lambat pada dataset yang besar, terutama jika jumlah fitur dan sampel meningkat.
      - Tidak terlalu efektif pada data dengan noise yang tinggi karena bisa mengurangi akurasi dalam menentukan hyperplane terbaik.
-   
+
+   - **Pembuatan Model**:
+     - Model SVM dibangun dengan menggunakan kernel linear untuk memisahkan kelas kelulusan.
+     - Kode yang digunakan untuk membangun model:
+       ```python
+       model = svm.SVC(kernel='linear')
+       model.fit(X_train, y_train)
+       y_pred = model.predict(X_test)
+       ```
+
 2. **XGBoost**
    - **Kelebihan**:
      - XGBoost adalah algoritma yang sangat cepat dan efisien, yang secara khusus dioptimalkan untuk performa komputasi dan pemrosesan data dalam jumlah besar.
@@ -112,9 +123,19 @@ Pada tahap **Modeling**, dua algoritma digunakan untuk memprediksi kelulusan sis
      - Memiliki kompleksitas yang lebih tinggi, yang dapat menyebabkan waktu pemrosesan lebih lama jika model tidak diatur dengan baik.
      - XGBoost membutuhkan parameter yang cukup banyak untuk disesuaikan agar mencapai hasil optimal.
 
-### Pemilihan Model Terbaik
+   - **Pembuatan Model**:
+     - Model XGBoost dibangun untuk memanfaatkan kekuatan boosting dalam meningkatkan akurasi prediksi.
+     - Kode yang digunakan untuk membangun model:
+       ```python
+       from xgboost import XGBClassifier
 
-Setelah menguji kedua algoritma pada dataset, model dengan akurasi tertinggi dipilih sebagai solusi terbaik. Alasan pemilihan ini adalah untuk memastikan prediksi yang akurat terhadap kelulusan siswa, sehingga guru dapat lebih awal mengidentifikasi siswa yang memerlukan perhatian khusus. 
+       xgb_clf = XGBClassifier()
+       xgb_clf.fit(X_train, y_train)
+       y_pred_xgb = xgb_clf.predict(X_test)
+       ```
+
+Kedua model ini akan dievaluasi berdasarkan metrik kinerja untuk menentukan model terbaik dalam memprediksi kelulusan siswa.
+
 
 ## Evaluation
 
@@ -149,6 +170,16 @@ Evaluasi model dilakukan menggunakan beberapa metrik untuk mengukur kinerja dala
    * Accuracy: 1.00
 
 Dari hasil evaluasi di atas, model XGBoost dipilih sebagai model terbaik karena mencapai akurasi sempurna (100%) dan memiliki nilai precision, recall, serta F1-Score yang lebih tinggi dibandingkan model SVM.
+
+### Evaluasi Problem Statement
+Model ini berhasil memprediksi kelulusan siswa berdasarkan nilai ujian, sesuai dengan problem statement yang telah ditentukan.
+
+### Evaluasi Goals
+Model yang dikembangkan mencapai akurasi yang tinggi, yang menunjukkan bahwa tujuan untuk mengidentifikasi siswa yang berpotensi tidak lulus dapat tercapai.
+
+### Evaluasi Solution Statement
+Penggunaan dua algoritma untuk perbandingan dan identifikasi faktor yang mempengaruhi kelulusan siswa memberikan wawasan yang berharga. Dengan memilih model terbaik, XGBoost, dapat membantu guru dalam mengidentifikasi siswa yang berisiko lebih awal, sehingga dapat memberikan dukungan yang diperlukan untuk meningkatkan peluang kelulusan.
+
 
 
 
