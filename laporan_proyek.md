@@ -106,14 +106,16 @@ Pada tahap **Modeling**, dua algoritma digunakan untuk memprediksi kelulusan sis
      - SVM cenderung lambat pada dataset yang besar, terutama jika jumlah fitur dan sampel meningkat.
      - Tidak terlalu efektif pada data dengan noise yang tinggi karena bisa mengurangi akurasi dalam menentukan hyperplane terbaik.
 
-   - **Pembuatan Model**:
-     - Model SVM dibangun dengan menggunakan kernel linear untuk memisahkan kelas kelulusan.
-     - Kode yang digunakan untuk membangun model:
-       ```python
-       model = svm.SVC(kernel='linear')
-       model.fit(X_train, y_train)
-       y_pred = model.predict(X_test)
-       ```
+   - **Parameter Model**:
+     - `kernel`: Tipe fungsi kernel yang digunakan untuk memetakan data ke dalam dimensi yang lebih tinggi. Pada model ini, digunakan `kernel='linear'` untuk mencari hyperplane linear terbaik.
+     - `C`: Parameter regulasi yang mengontrol trade-off antara mendapatkan margin yang lebih besar dan kesalahan klasifikasi. Nilai C yang lebih besar berarti lebih fokus pada kesalahan klasifikasi.
+
+   - **Proses Pembuatan Model**:
+     ```python
+     model = svm.SVC(kernel='linear', C=1.0)
+     model.fit(X_train, y_train)
+     y_pred = model.predict(X_test)
+     ```
 
 2. **XGBoost**
    - **Kelebihan**:
@@ -123,16 +125,19 @@ Pada tahap **Modeling**, dua algoritma digunakan untuk memprediksi kelulusan sis
      - Memiliki kompleksitas yang lebih tinggi, yang dapat menyebabkan waktu pemrosesan lebih lama jika model tidak diatur dengan baik.
      - XGBoost membutuhkan parameter yang cukup banyak untuk disesuaikan agar mencapai hasil optimal.
 
-   - **Pembuatan Model**:
-     - Model XGBoost dibangun untuk memanfaatkan kekuatan boosting dalam meningkatkan akurasi prediksi.
-     - Kode yang digunakan untuk membangun model:
-       ```python
-       from xgboost import XGBClassifier
+- **Parameter Model**:
+     - `n_estimators`: Jumlah pohon keputusan yang akan dibangun. Semakin banyak pohon, semakin kompleks model, tetapi juga dapat meningkatkan risiko overfitting.
+     - `learning_rate`: Mengontrol seberapa besar langkah yang diambil dalam setiap iterasi. Nilai yang lebih rendah dapat meningkatkan akurasi tetapi memerlukan lebih banyak estimasi.
+     - `max_depth`: Kedalaman maksimum dari pohon keputusan. Mengontrol kompleksitas model dan dapat membantu mencegah overfitting.
 
-       xgb_clf = XGBClassifier()
-       xgb_clf.fit(X_train, y_train)
-       y_pred_xgb = xgb_clf.predict(X_test)
-       ```
+   - **Proses Pembuatan Model**:
+     ```python
+     from xgboost import XGBClassifier
+
+     xgb_clf = XGBClassifier(n_estimators=100, learning_rate=0.1, max_depth=3)
+     xgb_clf.fit(X_train, y_train)
+     y_pred_xgb = xgb_clf.predict(X_test)
+     ```
 
 Kedua model ini akan dievaluasi berdasarkan metrik kinerja untuk menentukan model terbaik dalam memprediksi kelulusan siswa.
 
